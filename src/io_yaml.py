@@ -16,10 +16,8 @@ class IOYaml(object):
             IOYaml.__instance = object.__new__(cls)
         return IOYaml.__instance
 
-
         
     def read(self, tasks, resources):
-        print os.getcwd()
         try:
         
             with open(tasks) as t:
@@ -39,8 +37,19 @@ class IOYaml(object):
         
         try:
             with open(file_name, 'w') as f:
-                yaml.dump(ordered_schedule, f)
+                for k in ordered_schedule:
+                    print k,': ',ordered_schedule[k]
+                    f.write('{0}: {1}\n'.format(k, ordered_schedule[k]))
+                    
+                print '\noutput file located at', os.path.abspath(file_name)
+            
         except IOError as e:
             print "I/O error({0}): {1}".format(e.errno, e.strerror)
+            
+
+            
+            
+            
+            
         
         

@@ -107,7 +107,7 @@ class DataPrep(object):
         
         The algorithm used in scheduler does NOT try to optimize cores by predicting the 
         if a certain high core resource will be locked for a long period of time which could lead to issues
-        if a task has many children needed many cores, and a task with a few cores, and is the...
+        if a task has many children needed and needs many cores.
         '''
         
         for k in resources.keys():

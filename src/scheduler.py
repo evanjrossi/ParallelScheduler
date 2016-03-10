@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 '''
 Created on Mar 6, 2016
 
@@ -13,7 +14,8 @@ from data_prep import DataPrep
 
 class Scheduler(object):
     '''
-    classdocs
+    This class contains the algorithm for
+    building the schedule
     '''
      
     def __init__(self, schedule_data):
@@ -24,7 +26,7 @@ class Scheduler(object):
         self._schedule = OrderedDict({})
         
     def gen_schedule(self):
-        
+ 
         p_queue = deque([])
         self._recurs_sch(self._data.sorted_q, p_queue)
         return self._schedule
@@ -53,7 +55,15 @@ class Scheduler(object):
                     self._data.resources[r]['c_task'] = ''
                     
     def _recurs_sch(self,c_queue,p_queue):
-
+        '''
+        This method uses to queue and recursion
+        to construct the schedule. The two queues are
+        the current queue and pending queue. If a task 
+        cannot be scheduled because it is blocked.
+        The task is moved to the pending queue. When the
+        current queue is empty the function recurses 
+        swapping the queues.
+        '''
         if not c_queue:
             return 
         if self._check_p_running(c_queue):
@@ -63,7 +73,7 @@ class Scheduler(object):
                 return self._recurs_sch(p_queue, c_queue)
             else:
                 return self._recurs_sch(c_queue, p_queue)
-    
+        #If a resource is available, set the relevant data and add the task+sched to the schedule
         for resource in self._data.resources.keys():
             if self._data.resources[resource]['time'] == 0:            
                 if self._data.resources[resource]['cores']>= self._data.tasks[c_queue[0]]['cores_required']:
@@ -82,7 +92,9 @@ class Scheduler(object):
                
                     
     def _check_p_running(self, c_queue):
-        
+        '''
+        Helper function to check for parent tasks running.
+        '''
         if self._data.tasks[c_queue[0]]['parent_tasks']:
             for t in self._data.tasks[c_queue[0]]['parent_tasks']:
                 if self._data.tasks[t]['running'] == True:

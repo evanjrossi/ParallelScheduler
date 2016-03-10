@@ -9,7 +9,7 @@ import getopt
 
 class ArgProcessor(object):
     '''
-    classdocs
+    A class to encapsulate passing args to the application
     '''
 
     def __init__(self, argv):
@@ -23,26 +23,23 @@ class ArgProcessor(object):
         self.process_args(argv)
           
     def check_yaml(self, filepath):
-        '''
-        if filepath[-4:].lower() != "yaml": 
+        
+        if filepath[-4:].lower().strip("'") != "yaml": 
             raise ValueError('File type must be yaml')
             print self.usage
             sys.exit(1)
             
         else:
-        '''
-        return filepath
+            return filepath
         
         #os.path.exists(path)
     def process_args(self,argv):
-        
-       
         
         try:
             options, args = getopt.getopt(argv,'ht:r:o:',['tasks=','resources=','output='])
         except getopt.GetoptError as err:
         # print help information and exit:
-            print err # will print something like "option -a not recognized"
+            print err 
             print self.usage
             sys.exit(2)
         if not options:
@@ -57,4 +54,4 @@ class ArgProcessor(object):
             elif o in ('-r', '--resources'):
                 self.resource_file = self.check_yaml(a)
             elif o in ('-o', '--output'):
-                self.output_file = self.check_yaml(a)
+                self.output_file = a

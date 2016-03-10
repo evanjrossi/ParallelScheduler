@@ -9,3 +9,16 @@ task3:
  cores_required: 4
  execution_time: 50
  parent_tasks: "task1, task2"
+task4:
+ cores_required: 2
+ execution_time: 100
+task5: 
+ cores_required: 1
+ execution_time: 200
+ parent_tasks: task4
+task6: 
+ cores_required: 4
+ execution_time: 50
+ parent_tasks: "task1, task2"
+ 
+ 
