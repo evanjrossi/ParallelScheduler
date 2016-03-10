@@ -10,7 +10,8 @@ from copy import deepcopy
 
 class DataPrep(object):
     '''
-    classdocs
+    This class modifies the data structures
+    by adding additional data and sorting the tasks
     '''
 
 
@@ -104,10 +105,6 @@ class DataPrep(object):
         '''
         Adds extra keys for the scheduler to use and sorts based on least cores
         so that the scheduler can start out by assigning tasks resources with the least cores possible
-        
-        The algorithm used in scheduler does NOT try to optimize cores by predicting the 
-        if a certain high core resource will be locked for a long period of time which could lead to issues
-        if a task has many children needed and needs many cores.
         '''
         
         for k in resources.keys():
